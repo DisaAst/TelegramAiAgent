@@ -54,7 +54,7 @@ export const MODEL_PARAMS = {
   },
   
   IMAGE_ANALYSIS: {
-    MAX_TOKENS: 2000,
+    MAX_TOKENS: 10000,
     TEMPERATURE: 1.0,
     TOP_P: 0.95,
     MAX_STEPS: 5,
@@ -62,11 +62,11 @@ export const MODEL_PARAMS = {
   
   WEB_SEARCH: {
     BASIC: {
-      MAX_TOKENS: 800,
+      MAX_TOKENS: 6000,
       TEMPERATURE: 0.3,
     },
     ADVANCED: {
-      MAX_TOKENS: 1200,
+      MAX_TOKENS: 10000,
       TEMPERATURE: 0.1,
     },
   },
