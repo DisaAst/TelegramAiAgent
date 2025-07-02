@@ -4,8 +4,7 @@ export const BOT_MESSAGES = {
     FEATURES_TITLE: '✨ *Features:*',
     FEATURES: [
       '• 🧠 Answers to any questions (Google Gemini)',
-      '• 💰 Cost-effective web search for most queries (GPT-3.5)',
-      '• 🚀 Advanced real-time search for critical information (Perplexity)',
+      '• 🔍 Real-time web search with Google Grounding (Gemini 2.0 Flash)',
       '• 🎤 Voice message processing',
       '• 🖼️ Image analysis and description',
       '• 💭 Memory of recent messages for context',
@@ -36,8 +35,8 @@ export const BOT_MESSAGES = {
     HOW_IT_WORKS_TITLE: '*🔄 How it works:*',
     HOW_IT_WORKS: [
       '• I answer regular questions using Google Gemini',
-      '• Use basic search (GPT-3.5) for most web queries (cost-effective)',
-      '• Use advanced search (Perplexity) only for critical/urgent information',
+      '• Use real-time web search with Google Grounding when needed',
+      '• AI automatically decides when current information is required',
       '• Process voice messages and transcribe them',
       '• Analyze images and answer questions about them',
       '• Remember context from recent messages',
@@ -45,8 +44,8 @@ export const BOT_MESSAGES = {
     ],
     SEARCH_SYSTEM_TITLE: '*🔍 Search System:*',
     SEARCH_SYSTEM: [
-      '• 💰 Basic Search (default): Cost-effective, good for most queries',
-      '• 🚀 Advanced Search: Real-time Perplexity for urgent/critical queries',
+      '• 🔍 Google Grounding: Real-time search with reliable sources',
+      '• 🤖 Smart Detection: AI decides when search is needed',
       '• 🎯 Cached Results: 30-minute cache for frequently asked questions'
     ],
     HISTORY_TITLE: '*📚 History Management:*',
@@ -72,10 +71,10 @@ export const BOT_MESSAGES = {
     EXAMPLES_TITLE: '*💡 Examples:*',
     EXAMPLES: [
       '• "What\'s in this image?" + photo',
-      '• Voice: "What\'s the weather today?"',
+      '• Voice: "What\'s the weather today?" → grounded search',
       '• "Explain this code" + screenshot',
-      '• "Breaking news today" → advanced search',
-      '• "What is Python?" → basic search'
+      '• "Latest news about AI" → real-time information',
+      '• "What is Python?" → knowledge base answer'
     ]
   },
 
@@ -119,11 +118,10 @@ export const BOT_MESSAGES = {
     SEARCH_TITLE: '🔍 *Search Statistics:*',
     SEARCH_CACHE_ENTRIES: '• Search cache entries: {total}',
     SEARCH_VALID_ENTRIES: '• Valid cache entries: {valid}',
-    SEARCH_BASIC: '• Basic search (default): GPT-3.5-turbo',
-    SEARCH_ADVANCED: '• Advanced search: Perplexity (for urgent/critical queries)',
+    SEARCH_GROUNDING: '• Web search: Gemini 2.0 Flash with Google Grounding',
     AI_MODELS_TITLE: '🤖 *AI Models:*',
     AI_MAIN: '• Main: Google Gemini 2.0 Flash',
-    AI_SEARCH: '• Search: Basic by default, Advanced for critical queries'
+    AI_SEARCH: '• Search: Gemini 2.0 Flash with Google Grounding'
   },
 
   CACHE: {

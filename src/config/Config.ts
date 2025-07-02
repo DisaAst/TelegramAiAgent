@@ -8,7 +8,6 @@ config();
 export interface IConfig {
   telegramBotToken: string;
   geminiApiKey: string;
-  openrouterApiKey: string;
   isDev: boolean;
   chatHistoryLimit: number;
 }
@@ -19,14 +18,12 @@ export interface IConfig {
 export class Config implements IConfig {
   public readonly telegramBotToken: string;
   public readonly geminiApiKey: string;
-  public readonly openrouterApiKey: string;
   public readonly isDev: boolean;
   public readonly chatHistoryLimit: number;
 
   constructor() {
     this.telegramBotToken = process.env.TELEGRAM_BOT_TOKEN || '';
     this.geminiApiKey = process.env.GEMINI_API_KEY || '';
-    this.openrouterApiKey = process.env.OPENROUTER_API_KEY || '';
     this.isDev = process.env.NODE_ENV !== 'production';
     this.chatHistoryLimit = parseInt(process.env.CHAT_HISTORY_LIMIT || '7', 10);
 
@@ -43,10 +40,6 @@ export class Config implements IConfig {
     
     if (!this.geminiApiKey) {
       throw new Error('GEMINI_API_KEY is required');
-    }
-
-    if (!this.openrouterApiKey) {
-      throw new Error('OPENROUTER_API_KEY is required');
     }
 
     if (this.chatHistoryLimit < 1 || this.chatHistoryLimit > 20) {

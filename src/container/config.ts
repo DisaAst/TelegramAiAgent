@@ -10,7 +10,7 @@ import { UserSettingsService } from '../services/UserSettingsService';
 import { AIService } from '../services/AIService';
 
 // Tools
-import { PerplexityWebSearchTool } from '../tools/webSearch/PerplexityWebSearchTool';
+import { GeminiGroundingWebSearchTool } from '../tools/webSearch/GeminiGroundingWebSearchTool';
 
 // Agents
 import { GeminiAudioAgent } from '../agents/audio/GeminiAudioAgent';
@@ -50,7 +50,7 @@ export function configureDI(): void {
 
   // Tools
   container.bind(TOKENS.WebSearchTool, () => 
-    new PerplexityWebSearchTool(config.openrouterApiKey)
+    new GeminiGroundingWebSearchTool(config.geminiApiKey)
   );
 
   // Agents
@@ -59,12 +59,12 @@ export function configureDI(): void {
   );
 
   container.bind(TOKENS.ImageAgent, () => {
-    const webSearchTool = container.get<PerplexityWebSearchTool>(TOKENS.WebSearchTool);
+    const webSearchTool = container.get<GeminiGroundingWebSearchTool>(TOKENS.WebSearchTool);
     return new GeminiImageAgent(config.geminiApiKey, webSearchTool);
   });
 
   container.bind(TOKENS.TextAgent, () => {
-    const webSearchTool = container.get<PerplexityWebSearchTool>(TOKENS.WebSearchTool);
+    const webSearchTool = container.get<GeminiGroundingWebSearchTool>(TOKENS.WebSearchTool);
     return new GeminiTextAgent(config.geminiApiKey, webSearchTool, config.chatHistoryLimit);
   });
 
@@ -98,7 +98,7 @@ export function configureDI(): void {
     const aiService = container.get<AIService>(TOKENS.AIService);
     const chatHistoryService = container.get<ChatHistoryService>(TOKENS.ChatHistoryService);
     const userSettingsService = container.get<UserSettingsService>(TOKENS.UserSettingsService);
-    const webSearchTool = container.get<PerplexityWebSearchTool>(TOKENS.WebSearchTool);
+    const webSearchTool = container.get<GeminiGroundingWebSearchTool>(TOKENS.WebSearchTool);
     const mediaProcessor = container.get<TelegramMediaProcessor>(TOKENS.MediaProcessor);
     
     return new TelegramBot(

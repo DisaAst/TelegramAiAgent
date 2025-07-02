@@ -36,11 +36,8 @@ export const MODEL_CONFIG = {
   // Image processing
   IMAGE_AGENT: AI_MODELS.GEMINI.FLASH_2_5,
   
-  // Web search models
-  WEB_SEARCH: {
-    BASIC: AI_MODELS.PERPLEXITY.SONAR_LARGE,
-    ADVANCED: AI_MODELS.PERPLEXITY.SONAR_LARGE,
-  },
+  // Web search with Gemini Grounding
+  WEB_SEARCH: AI_MODELS.GEMINI.FLASH_2_0,
 } as const;
 
 /**
