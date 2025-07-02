@@ -48,13 +48,13 @@ export const MODEL_CONFIG = {
  */
 export const MODEL_PARAMS = {
   TEXT_GENERATION: {
-    MAX_TOKENS: 10000,
+    MAX_TOKENS: 20000,
     TEMPERATURE: 0.7,
-    MAX_STEPS: 5,
+    MAX_STEPS: 6,
   },
   
   IMAGE_ANALYSIS: {
-    MAX_TOKENS: 10000,
+    MAX_TOKENS: 20000,
     TEMPERATURE: 1.0,
     TOP_P: 0.95,
     MAX_STEPS: 5,
@@ -62,11 +62,11 @@ export const MODEL_PARAMS = {
   
   WEB_SEARCH: {
     BASIC: {
-      MAX_TOKENS: 6000,
+      MAX_TOKENS: 10000,
       TEMPERATURE: 0.3,
     },
     ADVANCED: {
-      MAX_TOKENS: 10000,
+      MAX_TOKENS: 15000,
       TEMPERATURE: 0.1,
     },
   },
