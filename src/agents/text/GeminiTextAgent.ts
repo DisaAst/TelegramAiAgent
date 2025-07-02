@@ -44,21 +44,6 @@ export class GeminiTextAgent implements ITextAgent {
         system: AI_PROMPTS.SYSTEM.MAIN,
         prompt: fullPrompt,
         tools: {
-          webSearch: tool({
-            description: AI_PROMPTS.WEB_SEARCH.DESCRIPTION,
-            parameters: z.object({
-              query: z.string().describe(AI_PROMPTS.WEB_SEARCH.QUERY_DESCRIPTION),
-            }),
-            execute: async ({ query }) => {
-              console.log("Web search tool called");
-              const searchResult = await this.webSearchTool.search(query, userTimezone);
-              return {
-                query: searchResult.query,
-                results: searchResult.results,
-                timestamp: searchResult.timestamp.toISOString(),
-              };
-            },
-          }),
         },
         maxSteps: MODEL_PARAMS.TEXT_GENERATION.MAX_STEPS,
         maxTokens: MODEL_PARAMS.TEXT_GENERATION.MAX_TOKENS,
