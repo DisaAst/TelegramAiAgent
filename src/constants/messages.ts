@@ -153,6 +153,6 @@ export const BOT_MESSAGES = {
     SEARCH: '🔍',
     VOICE: '🎤',
     IMAGE: '🖼️',
-    AUDIO: '��'
+    AUDIO: '🎵'
   }
 } as const; 
