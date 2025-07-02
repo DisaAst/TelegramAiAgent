@@ -118,13 +118,15 @@ export class GeminiGroundingWebSearchTool implements IWebSearchTool {
     console.log(`🔍 Performing Gemini grounded search for: ${query}`);
 
     const dateTimeContext = formatDateTimeContext(userTimezone);
+
+    const groundingTool = {
+      googleSearch: {},
+    };
     
     // Create model with Google Search grounding
     const model = this.genAI.getGenerativeModel({
       model: "gemini-2.0-flash-exp",
-      tools: [{
-        googleSearchRetrieval: {}
-      }],
+      tools: [[groundingTool]],
       generationConfig: {
         temperature: 0.3,
         topK: 40,
