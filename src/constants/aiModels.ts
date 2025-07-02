@@ -5,6 +5,7 @@ export const AI_MODELS = {
   // Google Gemini models
   GEMINI: {
     FLASH_2_0: 'gemini-2.0-flash-exp',
+    FLASH_2_5: 'gemini-2.5-flash',
     PRO_2_5: 'gemini-2.5-pro',
   },
 
@@ -30,10 +31,10 @@ export const MODEL_CONFIG = {
   TEXT_AGENT: AI_MODELS.GEMINI.PRO_2_5,
   
   // Audio processing
-  AUDIO_AGENT: AI_MODELS.GEMINI.FLASH_2_0,
+  AUDIO_AGENT: AI_MODELS.GEMINI.FLASH_2_5,
   
   // Image processing
-  IMAGE_AGENT: AI_MODELS.GEMINI.PRO_2_5,
+  IMAGE_AGENT: AI_MODELS.GEMINI.FLASH_2_5,
   
   // Web search models
   WEB_SEARCH: {
