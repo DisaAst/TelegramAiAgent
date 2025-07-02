@@ -28,7 +28,7 @@ Instructions:
   },
 
   AUDIO: {
-    TRANSCRIBE_AND_RESPOND: 'Please transcribe this audio message and respond to the user\'s request. Always respond in the same language as the spoken audio.',
+    TRANSCRIBE_AND_RESPOND: 'Please, only transcribe this audio message.',
     
     TRANSCRIBE_ONLY: 'Please transcribe this audio message exactly as spoken. Do not add any commentary or analysis, just the transcription.',
   },
