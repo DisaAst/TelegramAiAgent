@@ -126,7 +126,7 @@ export class GeminiGroundingWebSearchTool implements IWebSearchTool {
     // Create model with Google Search grounding
     const model = this.genAI.getGenerativeModel({
       model: "gemini-2.0-flash-exp",
-      tools: [[groundingTool]],
+      tools: [groundingTool],
       generationConfig: {
         temperature: 0.3,
         topK: 40,
