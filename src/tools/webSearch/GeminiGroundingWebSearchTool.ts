@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { IWebSearchTool } from '../interfaces';
 import { WebSearchResult } from '../../types';
 import { formatDateTimeContext } from '../../utils/dateTime';
+import { GoogleGenAI } from "@google/genai";
 
 interface CacheEntry {
   result: WebSearchResult;
@@ -16,12 +17,12 @@ export class GeminiGroundingWebSearchTool implements IWebSearchTool {
   public readonly version = '1.0.0';
   public readonly description = 'Web search tool using Gemini 2.0 Flash with Google Grounding';
 
-  private genAI: GoogleGenerativeAI;
+  private genAI: GoogleGenAI;
   private cache = new Map<string, CacheEntry>();
   private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
 
   constructor(private apiKey: string) {
-    this.genAI = new GoogleGenerativeAI(apiKey);
+    this.genAI = new GoogleGenAI({});
   }
 
   /**
@@ -124,16 +125,6 @@ export class GeminiGroundingWebSearchTool implements IWebSearchTool {
     };
     
     // Create model with Google Search grounding
-    const model = this.genAI.getGenerativeModel({
-      model: "gemini-2.0-flash-exp",
-      tools: [groundingTool],
-      generationConfig: {
-        temperature: 0.3,
-        topK: 40,
-        topP: 0.95,
-        maxOutputTokens: 2048,
-      },
-    });
 
     const prompt = `Current context: ${dateTimeContext}
 
@@ -148,15 +139,21 @@ Please:
 
 Query: ${query}`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    const config = {
+      tools: [groundingTool],
+    };
+
+    const response = await this.genAI.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: prompt,
+      config,
+    });
 
     console.log(`Gemini grounded search completed for: ${query}`);
 
     return {
       query,
-      results: text,
+      results: response.text ?? "",
       timestamp: new Date(),
     };
   }

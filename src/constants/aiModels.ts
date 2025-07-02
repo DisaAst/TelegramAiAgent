@@ -28,7 +28,7 @@ export const AI_MODELS = {
  */
 export const MODEL_CONFIG = {
   // Main text processing
-  TEXT_AGENT: AI_MODELS.GEMINI.PRO_2_5,
+  TEXT_AGENT: AI_MODELS.GEMINI.FLASH_2_5,
   
   // Audio processing
   AUDIO_AGENT: AI_MODELS.GEMINI.FLASH_2_5,
