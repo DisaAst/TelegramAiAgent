@@ -7,6 +7,7 @@
     "build": "tsc",
     "start": "node dist/main.js",
     "dev": "tsc && node dist/main.js",
+    "pm2:start": "pm2 start dist/main.js --name telegram-ai-bot",
     "watch": "tsc -w"
   },
   "dependencies": {
