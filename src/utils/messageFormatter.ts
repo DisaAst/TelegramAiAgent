@@ -40,7 +40,7 @@ export class MessageFormatter {
    */
   static cleanForTelegram(text: string): string {
     return text
-      // Remove complex markdown
+      // Remove complex markdown (paired)
       .replace(/\*\*(.*?)\*\*/g, '$1')
       .replace(/\*(.*?)\*/g, '$1')
       .replace(/__(.*?)__/g, '$1')
@@ -50,7 +50,66 @@ export class MessageFormatter {
       .replace(/\[(.*?)\]\(.*?\)/g, '$1')
       // Replace lists
       .replace(/^\s*[\*\-\+]\s+/gm, '• ')
+      // Escape remaining markdown characters that can break parsing
+      .replace(/\*/g, '\\*') // Escape remaining asterisks
+      .replace(/_/g, '\\_') // Escape remaining underscores
+      .replace(/`/g, '\\`') // Escape remaining backticks
+      .replace(/\[/g, '\\[') // Escape remaining brackets
+      .replace(/\]/g, '\\]')
+      .replace(/~/g, '\\~') // Escape tildes (strikethrough)
       // Clean extra whitespace
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  /**
+   * Safe send for Telegram with fallback to plain text
+   * @param text - Text to send
+   * @returns Object with text and parse mode
+   */
+  static safeFormat(text: string): { text: string; parse_mode?: 'Markdown' } {
+    const cleanedText = this.cleanForTelegram(text);
+    
+    // Check if text might still have markdown parsing issues
+    const problematicPatterns = [
+      /\*[^*]*$/, // Unclosed asterisk at end
+      /_[^_]*$/, // Unclosed underscore at end
+      /`[^`]*$/, // Unclosed backtick at end
+    ];
+    
+    const hasProblems = problematicPatterns.some(pattern => pattern.test(cleanedText));
+    
+    if (hasProblems) {
+      // Fallback to plain text without markdown
+      return {
+        text: this.removeAllMarkdown(text)
+      };
+    }
+    
+    return {
+      text: cleanedText,
+      parse_mode: 'Markdown'
+    };
+  }
+
+  /**
+   * Remove all markdown formatting completely
+   * @param text - Text to clean
+   * @returns Plain text without any markdown
+   */
+  private static removeAllMarkdown(text: string): string {
+    return text
+      // Remove all markdown
+      .replace(/\*\*(.*?)\*\*/g, '$1')
+      .replace(/\*(.*?)\*/g, '$1')
+      .replace(/__(.*?)__/g, '$1')
+      .replace(/_(.*?)_/g, '$1')
+      .replace(/```([\s\S]*?)```/g, '$1')
+      .replace(/`(.*?)`/g, '$1')
+      .replace(/\[(.*?)\]\(.*?\)/g, '$1')
+      .replace(/^\s*[\*\-\+]\s+/gm, '• ')
+      // Remove all remaining markdown characters
+      .replace(/[*_`\[\]~]/g, '')
       .replace(/\n{3,}/g, '\n\n')
       .trim();
   }

@@ -133,11 +133,11 @@ export class TelegramBot implements ITelegramBot {
       const history = this.chatHistoryService.getRecentHistory(chatId);
       const aiResponse = await this.aiService.generateResponse(transcription, history, userId);
 
-      const cleanedText = MessageFormatter.cleanForTelegram(aiResponse.text);
       const responseEmoji = aiResponse.usedWebSearch ? BOT_MESSAGES.EMOJIS.SEARCH : BOT_MESSAGES.EMOJIS.BRAIN;
-      const responseText = `${BOT_MESSAGES.EMOJIS.VOICE} *Transcription:* ${transcription}\n\n${responseEmoji} ${cleanedText}`;
-
-      await ctx.reply(responseText, { parse_mode: 'Markdown' });
+      const responseText = `${BOT_MESSAGES.EMOJIS.VOICE} *Transcription:* ${transcription}\n\n${responseEmoji} ${aiResponse.text}`;
+      
+      const formatResult = MessageFormatter.safeFormat(responseText);
+      await ctx.reply(formatResult.text, formatResult.parse_mode ? { parse_mode: formatResult.parse_mode } : {});
       this.chatHistoryService.addAssistantMessage(chatId, aiResponse.text);
 
       if (this.config.isDev) {
@@ -188,11 +188,11 @@ export class TelegramBot implements ITelegramBot {
       const history = this.chatHistoryService.getRecentHistory(chatId);
       const aiResponse = await this.aiService.generateResponse(transcription, history, userId);
 
-      const cleanedText = MessageFormatter.cleanForTelegram(aiResponse.text);
       const responseEmoji = aiResponse.usedWebSearch ? BOT_MESSAGES.EMOJIS.SEARCH : BOT_MESSAGES.EMOJIS.BRAIN;
-      const responseText = `${BOT_MESSAGES.EMOJIS.AUDIO} *Audio processed:* ${transcription}\n\n${responseEmoji} ${cleanedText}`;
-
-      await ctx.reply(responseText, { parse_mode: 'Markdown' });
+      const responseText = `${BOT_MESSAGES.EMOJIS.AUDIO} *Audio processed:* ${transcription}\n\n${responseEmoji} ${aiResponse.text}`;
+      
+      const formatResult = MessageFormatter.safeFormat(responseText);
+      await ctx.reply(formatResult.text, formatResult.parse_mode ? { parse_mode: formatResult.parse_mode } : {});
       this.chatHistoryService.addAssistantMessage(chatId, aiResponse.text);
 
       if (this.config.isDev) {
@@ -245,11 +245,11 @@ export class TelegramBot implements ITelegramBot {
         imageData
       );
 
-      const cleanedText = MessageFormatter.cleanForTelegram(aiResponse.text);
       const responseEmoji = aiResponse.usedWebSearch ? BOT_MESSAGES.EMOJIS.SEARCH : BOT_MESSAGES.EMOJIS.BRAIN;
-      const responseText = `${BOT_MESSAGES.EMOJIS.IMAGE} ${cleanedText}`;
-
-      await ctx.reply(responseText);
+      const responseText = `${BOT_MESSAGES.EMOJIS.IMAGE} ${aiResponse.text}`;
+      
+      const formatResult = MessageFormatter.safeFormat(responseText);
+      await ctx.reply(formatResult.text, formatResult.parse_mode ? { parse_mode: formatResult.parse_mode } : {});
       this.chatHistoryService.addAssistantMessage(chatId, aiResponse.text);
 
       if (this.config.isDev) {
@@ -307,11 +307,11 @@ export class TelegramBot implements ITelegramBot {
         imageData
       );
 
-      const cleanedText = MessageFormatter.cleanForTelegram(aiResponse.text);
       const responseEmoji = aiResponse.usedWebSearch ? BOT_MESSAGES.EMOJIS.SEARCH : BOT_MESSAGES.EMOJIS.BRAIN;
-      const responseText = `${BOT_MESSAGES.EMOJIS.IMAGE} ${cleanedText}`;
-
-      await ctx.reply(responseText);
+      const responseText = `${BOT_MESSAGES.EMOJIS.IMAGE} ${aiResponse.text}`;
+      
+      const formatResult = MessageFormatter.safeFormat(responseText);
+      await ctx.reply(formatResult.text, formatResult.parse_mode ? { parse_mode: formatResult.parse_mode } : {});
       this.chatHistoryService.addAssistantMessage(chatId, aiResponse.text);
 
       if (this.config.isDev) {
@@ -347,11 +347,11 @@ export class TelegramBot implements ITelegramBot {
       const history = this.chatHistoryService.getRecentHistory(chatId);
       const aiResponse = await this.aiService.generateResponse(message, history, userId);
 
-      const cleanedText = MessageFormatter.cleanForTelegram(aiResponse.text);
       const searchEmoji = aiResponse.usedWebSearch ? BOT_MESSAGES.EMOJIS.SEARCH : BOT_MESSAGES.EMOJIS.BRAIN;
-      const responseText = `${searchEmoji} ${cleanedText}`;
-
-      await ctx.reply(responseText);
+      const responseText = `${searchEmoji} ${aiResponse.text}`;
+      
+      const formatResult = MessageFormatter.safeFormat(responseText);
+      await ctx.reply(formatResult.text, formatResult.parse_mode ? { parse_mode: formatResult.parse_mode } : {});
       this.chatHistoryService.addAssistantMessage(chatId, aiResponse.text);
 
       if (this.config.isDev) {
